@@ -30,18 +30,19 @@
             <div class="form-main" >
                 <div class="row-content">
                     <label  for="text">Full Name: </label>
-                    <input class="input" type="text" id="text" name="text">
+                    <input class="input" type="text" id="text" name="text" required>
                     <error-output class="text-error" for="text"></error-output>
                 </div>
                 <div class="row-content">
                     <label class="label text" for="address">Address</label>
-                    <textarea class="input" id="address" name="Address" style="height: 100px;" required></textarea>
+                    <textarea class="input" id="address" name="address" style="height: 100px;" required></textarea>
                     <error-output class="address-error" for="address"></error-output>
                 </div>
                 <div class="row-content-exp">
                     <div class="oneRow-content">
                         <label class="label text" for="city">City</label>
-                        <select class="select-input" id="city" name="City" required>
+                        <select class="select-input" id="city" name="city" required>
+                            <option value="0">Select City</option>
                             <option value="" selected disabled hidden>Select City</option>
                             <option value="Kolhapur">Kolhapur</option>
                             <option value="Sangali">Sangali</option>
@@ -60,6 +61,7 @@
                     <div class="oneRow-content">
                         <label class="label text" for="state">State</label>
                         <select class="select-input" id="state" name="State" required>
+                            <option value="0">Select State</option>
                             <option value="" selected disabled hidden>Select State</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                             <option value="Assam">Assam</option>
@@ -79,12 +81,13 @@
                     </div>
                     <div class="oneRow-content">
                         <label class="label text" for="zip">Zip</label>
-                        <input class="input" type="text" name="Zip" id="zip" required>
+                        <input class="input" type="number" name="zip" id="zip" required>
+                        <error-output id="zip-error" class="zip-error" for="zip"></error-output>
                     </div>
                 </div>
                 <div class="row-content">
-                    <label class="label text" for="phone">Phone Number</label>
-                    <input class="input" type="text" name="Phone" id="phone" required>
+                    <label class="label text" for="phoneNumber">Phone Number</label>
+                    <input class="input" type="text" name="phoneNumber" id="phoneNumber" required>
                     <error-output class="phone-error" for="text"></error-output>
                 </div>
             </div>
