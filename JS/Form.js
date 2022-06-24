@@ -23,21 +23,20 @@ class Contact {
     }
 
     set phoneNumber(phoneNumber) {
-        const PHONE_NUMBER_REGEX = RegExp("^[0-9]{2}\s[789][0-9]{9}$");
+        const PHONE_NUMBER_REGEX = RegExp("^[0-9]{2}\\s[789][0-9]{9}$");
         if (PHONE_NUMBER_REGEX.test(phoneNumber)) 
         {
             this._phoneNumber = phoneNumber;
         }
         else throw "Incorrect Phone Number";
     } 
-    // "^[0-9]{2}\s[789][0-9]{9}"
 
     get address() {
         return this._address;
     }
     set address(address) 
     {
-        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@,&]\s{3,}');
+        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@,&()*\\s]{3,}$');
         if (ADDRESS_REGEX.test(address)) {
             this._address = address;
         }
@@ -67,7 +66,7 @@ class Contact {
     set zip(zip) {
         const ZIP_REGEX = RegExp("^[1-9]{3}?\s[0-9]{3}$");
         if (ZIP_REGEX.test(zip)) {
-            this._zip = value;
+            this._zip = zip;
         }
         else throw "Zip code is incorrect";        
     }
@@ -86,13 +85,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const textError = document.querySelector('.text-error');
     name.addEventListener('input', function () {
         if (name.value.length == 0) {
-            textError.textContent = " ";
+            textError.textContent = "";
             document.getElementById('submitButton').disabled = false;
             return;
         }
         try {
             (new Contact()).name = name.value;
-            textError.textContent = " ";
+            textError.textContent = "";
         } catch (error) {
             document.getElementById('submitButton').disabled = true;
             textError.textContent = error;
@@ -103,13 +102,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const phoneNumberError = document.querySelector('.phone-error');
     phoneNumber.addEventListener('input', function () {
         if (phoneNumber.value.length == 0) {
-            phoneNumberError.textContent = " ";
+            phoneNumberError.textContent = "";
             document.getElementById('submitButton').disabled = true;
             return;
         }
         try {
             (new Contact()).phoneNumber = phoneNumber.value;
-            phoneNumberError.textContent = " ";
+            phoneNumberError.textContent = "";
         } catch (error) {
             document.getElementById('submitButton').disabled = true;
             phoneNumberError.textContent = error;
@@ -120,13 +119,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const addressError = document.querySelector('.address-error');
     address.addEventListener('input', function () {
         if (address.value.length == 0) {
-            addressError.textContent = " ";
+            addressError.textContent = "";
             document.getElementById('submitButton').disabled = true;
             return;
         }
         try {
             (new Contact()).address = address.value;
-            addressError.textContent = " ";
+            addressError.textContent = "";
         } catch (error) {
             document.getElementById('submitButton').disabled = true;
             addressError.textContent = error;
@@ -138,13 +137,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     zip.addEventListener('input', function () {
 
         if (zip.value.length == 0) {
-            zipError.textContent = " ";
+            zipError.textContent = "";
             document.getElementById('submitButton').disabled = true;
             return;
         }
         try {
             (new Contact()).zip = zip.value;
-            zipError.textContent = " ";
+            zipError.textContent = "";
             if (zip.value && phoneNumber.value && name.value == true) {
                 document.getElementById('submitButton').disabled = false;
             }
@@ -184,7 +183,26 @@ function createContact() {
     alert(contact);
 }
 
+// function createAndUpdateStorage() {
+//     let contactList = JSON.parse(localStorage.getItem("ContactList"));
+// }
+
+const createAndUpdateStorage = (contact) => {
+    let contactList = JSON.parse(localStorage.getItem("ContactList"));
+    if (contactList != undefined) 
+    {
+      contactList.push(contact);
+    } 
+    else 
+    {
+      contactList = [contact];
+    }
+    alert("Contact Added Sucessfully");
+    localStorage.setItem("ContactList", JSON.stringify(contactList));
+  }
+
 const getInputValueById = (id) => {
     let value = document.querySelector(id).value;
     return value;
 }
+
