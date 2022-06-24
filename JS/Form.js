@@ -12,9 +12,9 @@ class Contact {
     }
   
     set name(name) {
-      let nameRegex = RegExp("^[A-Z]{1}[a-zA-Z]{2,}$");
+      let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
       if (nameRegex.test(name)) 
-      this._name = name;
+      this._name = nameRegex;
       else throw "Incorrect Name";
     }
   
@@ -23,20 +23,21 @@ class Contact {
     }
 
     set phoneNumber(phoneNumber) {
-        const PHONE_NUMBER_REGEX = RegExp("^[0-9]{2}\\s{1}[7-9]{1}[0-9]{9}$");
+        const PHONE_NUMBER_REGEX = RegExp("^[0-9]{2}\s[789][0-9]{9}$");
         if (PHONE_NUMBER_REGEX.test(phoneNumber)) 
         {
             this._phoneNumber = phoneNumber;
         }
         else throw "Incorrect Phone Number";
-    }
+    } 
+    // "^[0-9]{2}\s[789][0-9]{9}"
 
     get address() {
         return this._address;
     }
     set address(address) 
     {
-        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@,&]{3,}$');
+        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@,&]\s{3,}');
         if (ADDRESS_REGEX.test(address)) {
             this._address = address;
         }
@@ -64,7 +65,7 @@ class Contact {
     }
 
     set zip(zip) {
-        const ZIP_REGEX = RegExp("^[0-9]{3}\\s{0,1}[0-9]{3}$");
+        const ZIP_REGEX = RegExp("^[1-9]{3}?\s[0-9]{3}$");
         if (ZIP_REGEX.test(zip)) {
             this._zip = value;
         }
@@ -92,9 +93,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         try {
             (new Contact()).name = name.value;
             textError.textContent = " ";
-        } catch (e) {
+        } catch (error) {
             document.getElementById('submitButton').disabled = true;
-            textError.textContent = e;
+            textError.textContent = error;
         }
     });
 
@@ -109,9 +110,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         try {
             (new Contact()).phoneNumber = phoneNumber.value;
             phoneNumberError.textContent = " ";
-        } catch (e) {
+        } catch (error) {
             document.getElementById('submitButton').disabled = true;
-            phoneNumberError.textContent = e;
+            phoneNumberError.textContent = error;
         }
     });
 
@@ -126,9 +127,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         try {
             (new Contact()).address = address.value;
             addressError.textContent = " ";
-        } catch (e) {
+        } catch (error) {
             document.getElementById('submitButton').disabled = true;
-            addressError.textContent = e;
+            addressError.textContent = error;
         }
     });
 
@@ -144,20 +145,26 @@ window.addEventListener('DOMContentLoaded', (event) => {
         try {
             (new Contact()).zip = zip.value;
             zipError.textContent = " ";
-            if (zip.value && phoneNumber.value && name.value) {
+            if (zip.value && phoneNumber.value && name.value == true) {
                 document.getElementById('submitButton').disabled = false;
             }
             
-        } catch (e) {
+        } catch (error) {
             document.getElementById('submitButton').disabled = true;
-            zipError.textContent = e;
+            zipError.textContent = error;
         }
     });
 });
 
 const save = () => {
-    createContact();
+    try {
+        let contact = createContact();
+        createAndUpdateStorage(contact);
+    } catch (error) {
+        return;
+    }
 }
+
 function createContact() {
     let contact = new Contact();
     try 
@@ -170,9 +177,9 @@ function createContact() {
         contact.city = getInputValueById("#city");
         contact.zip = getInputValueById("#zip");
     } 
-    catch (e) 
+    catch (error) 
     {
-        console.log(e);
+        console.log(error);
     }
     alert(contact);
 }
