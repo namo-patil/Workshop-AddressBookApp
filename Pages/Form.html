@@ -20,7 +20,7 @@
     </header>
     <!-- UC-2 -->
     <div class="form">
-        <form class="form-content" action="#">
+        <form class="form-content" autocomplete="off" onsubmit="save()" onreset="reset()">
             <div class="form-content-head">
                 <div>PERSON ADDRESS FORM</div>
                 <img class="cancel-img" src="../assets/CrossSign.jpg" alt="image">
@@ -91,7 +91,14 @@
                     <error-output class="phone-error" for="text"></error-output>
                 </div>
             </div>
+            <div class="buttonParent">
+                <div class="submit-reset">
+                    <button type="submit" class="submitButton button" id="submitButton">Add</button>
+                    <button type="reset" class="resetButton button">Reset</button>
+                </div>
+            </div>                    
         </form>
     </div>
+    <script defer src="../JS/Form.js"></script>
 </body>
 </html>
