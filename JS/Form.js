@@ -85,13 +85,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const textError = document.querySelector('.text-error');
     name.addEventListener('input', function () {
         if (name.value.length == 0) {
-            textError.textContent = "";
+            textError.textContent = " ";
             document.getElementById('submitButton').disabled = false;
             return;
         }
         try {
             (new Contact()).name = name.value;
-            textError.textContent = "";
+            textError.textContent = " ";
         } catch (e) {
             document.getElementById('submitButton').disabled = true;
             textError.textContent = e;
@@ -102,13 +102,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const phoneNumberError = document.querySelector('.phone-error');
     phoneNumber.addEventListener('input', function () {
         if (phoneNumber.value.length == 0) {
-            phoneNumberError.textContent = "";
+            phoneNumberError.textContent = " ";
             document.getElementById('submitButton').disabled = true;
             return;
         }
         try {
             (new Contact()).phoneNumber = phoneNumber.value;
-            phoneNumberError.textContent = "";
+            phoneNumberError.textContent = " ";
         } catch (e) {
             document.getElementById('submitButton').disabled = true;
             phoneNumberError.textContent = e;
@@ -119,13 +119,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const addressError = document.querySelector('.address-error');
     address.addEventListener('input', function () {
         if (address.value.length == 0) {
-            addressError.textContent = "";
+            addressError.textContent = " ";
             document.getElementById('submitButton').disabled = true;
             return;
         }
         try {
             (new Contact()).address = address.value;
-            addressError.textContent = "";
+            addressError.textContent = " ";
         } catch (e) {
             document.getElementById('submitButton').disabled = true;
             addressError.textContent = e;
@@ -137,13 +137,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     zip.addEventListener('input', function () {
 
         if (zip.value.length == 0) {
-            zipError.textContent = "";
+            zipError.textContent = " ";
             document.getElementById('submitButton').disabled = true;
             return;
         }
         try {
             (new Contact()).zip = zip.value;
-            zipError.textContent = "";
+            zipError.textContent = " ";
             if (zip.value && phoneNumber.value && name.value) {
                 document.getElementById('submitButton').disabled = false;
             }
