@@ -3,18 +3,18 @@ class Contact {
       return this._id;
     }
   
-    set id(id) {
-      this._id = id;
+    set id(value) {
+      this._id = value;
     }
   
     get name() {
       return this._name;
     }
   
-    set name(name) {
-      let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
-      if (nameRegex.test(name)) 
-      this._name = nameRegex;
+    set name(value) {
+      let nameRegex = RegExp('^[A-Z]{1}[a-zA-Z]{2,}\s[A-Z]{1}[a-zA-Z]{2,}$');
+      if (nameRegex.test(value)) 
+      this._name =value;
       else throw "Incorrect Name";
     }
   
@@ -22,11 +22,11 @@ class Contact {
         return this._phoneNumber;
     }
 
-    set phoneNumber(phoneNumber) {
+    set phoneNumber(value) {
         const PHONE_NUMBER_REGEX = RegExp("^[0-9]{2}\\s[789][0-9]{9}$");
-        if (PHONE_NUMBER_REGEX.test(phoneNumber)) 
+        if (PHONE_NUMBER_REGEX.test(value)) 
         {
-            this._phoneNumber = phoneNumber;
+            this._phoneNumber = value;
         }
         else throw "Incorrect Phone Number";
     } 
@@ -34,11 +34,11 @@ class Contact {
     get address() {
         return this._address;
     }
-    set address(address) 
+    set address(value) 
     {
-        const ADDRESS_REGEX = RegExp('^[a-zA-Z0-9#@,&()*\\s]{3,}$');
-        if (ADDRESS_REGEX.test(address)) {
-            this._address = address;
+        const ADDRESS_REGEX = RegExp('(^[a-zA-Z0-9#@,&()*\\s]{3,}$)*');
+        if (ADDRESS_REGEX.test(value)) {
+            this._address = value;
         }
         else throw "Address is incorrect";
     }
@@ -47,26 +47,26 @@ class Contact {
         return this._city;
     }
 
-    set city(city) {
-        this._city = city;
+    set city(value) {
+        this._city = value;
     }
     
     get state() {
         return this._state;
     }
 
-    set state(state) {
-        this._state = state;
+    set state(value) {
+        this._state = value;
     }
 
     get zip() {
         return this._zip;
     }
 
-    set zip(zip) {
+    set zip(value) {
         const ZIP_REGEX = RegExp("^[1-9]{3}?\s[0-9]{3}$");
-        if (ZIP_REGEX.test(zip)) {
-            this._zip = zip;
+        if (ZIP_REGEX.test(value)) {
+            this._zip = value;
         }
         else throw "Zip code is incorrect";        
     }
@@ -84,7 +84,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     const textError = document.querySelector('.text-error');
     name.addEventListener('input', function () {
-        if (name.value.length == 0) {
+        if (name.value.length != 0) {
             textError.textContent = "";
             document.getElementById('submitButton').disabled = false;
             return;
@@ -164,23 +164,40 @@ const save = () => {
     }
 }
 
-function createContact() {
+const createContact = () => {
     let contact = new Contact();
-    try 
-    {
-        contact.name = getInputValueById('#name');
+    try {
+    } catch(e){
+        setTextValue(".text-error", e);
+      throw e;
+    }
+    try {
+        contact.name = getInputValueById("#name");
         contact.id = Math.floor(Math.random() * 100);
         contact.phoneNumber = getInputValueById("#phonenumber");
-        contact.address = getInputValueById('#address');
-        contact.state = getInputValueById("#state");
-        contact.city = getInputValueById("#city");
+        contact.address = getInputValueById("#address");
+        contact.state = getSelectedValues("[name=state]");
+        contact.city = getInputValueById("[name=city]");
         contact.zip = getInputValueById("#zip");
     } 
-    catch (error) 
-    {
+    catch (error) {
         console.log(error);
     }
-    alert(contact);
+   return contact;
+}
+
+const getSelectedValues = (propertyValue) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    // let setItems = [];
+    allItems.forEach((item) => {
+      if (item.checked) setItems.push(item.value);
+    });
+    return setItems;
+};
+
+const getInputValueById = (id) => {
+    let value = document.querySelector(id).value;
+    return value;
 }
 
 // function createAndUpdateStorage() {
@@ -189,20 +206,55 @@ function createContact() {
 
 const createAndUpdateStorage = (contact) => {
     let contactList = JSON.parse(localStorage.getItem("ContactList"));
-    if (contactList != undefined) 
-    {
+    if (contactList != undefined) {
       contactList.push(contact);
-    } 
-    else 
-    {
+    } else {
       contactList = [contact];
     }
     alert("Contact Added Sucessfully");
     localStorage.setItem("ContactList", JSON.stringify(contactList));
+}
+
+const resetForm = () => {
+    setValue('#name', ' ');
+    setValue('#address', ' ');
+    setValue('#phoneNumber', ' ');
+    setValue('#zip', ' ');
+    unsetSelectedValues('[name=state');
+    unsetSelectedValues('[name=city]');
   }
 
-const getInputValueById = (id) => {
-    let value = document.querySelector(id).value;
-    return value;
-}
+// const cancel = () => {
+//     lin
+// }  
+  
+  const setSelectedIndex = (id, index) => {
+    const element = document.querySelector(id);
+    element.selectedIndex = index;
+  }
+  
+  const unsetSelectedValues = (propertyValue) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        item.checked = false;
+    });
+  }
+  
+  const setTextValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.textContent = value;
+  }
+  
+  const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
+  }
+  
+  const checkForUpdate = () => {
+    const employeePayrollJson = localStorage.getItem('editEmp');
+    isUpdate = employeePayrollJson ? true : false;
+    if (!isUpdate) return;
+    employeePayrollObj = JSON.parse(employeePayrollJson);
+    setForm();
+  }
 
