@@ -21,8 +21,73 @@
     <!-- UC-2 -->
     <div class="form">
         <form class="form-content" action="#">
-            <div class="form-content-head">PERSON ADDRESS FORM</div>
-            <img class="cancel-img" src="../assets/crosssign3.png" alt="image">
+            <div class="form-content-head">
+                <div>PERSON ADDRESS FORM</div>
+                <img class="cancel-img" src="../assets/CrossSign.jpg" alt="image">
+            </div>
+            
+            <!-- UC-3 -->
+            <div class="form-main" >
+                <div class="row-content">
+                    <label  for="text">Full Name: </label>
+                    <input class="input" type="text" id="text" name="text">
+                    <error-output class="text-error" for="text"></error-output>
+                </div>
+                <div class="row-content">
+                    <label class="label text" for="address">Address</label>
+                    <textarea class="input" id="address" name="Address" style="height: 100px;" required></textarea>
+                    <error-output class="address-error" for="address"></error-output>
+                </div>
+                <div class="row-content-exp">
+                    <div class="oneRow-content">
+                        <label class="label text" for="city">City</label>
+                        <select class="select-input" id="city" name="City" required>
+                            <option value="" selected disabled hidden>Select City</option>
+                            <option value="Kolhapur">Kolhapur</option>
+                            <option value="Sangali">Sangali</option>
+                            <option value="Satara">Satara</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Nagpur">Nagpur</option>
+                            <option value="Bhandara">Bhandara</option>
+                            <option value="Thane">Thane</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Mumbai">Mumbai</option>
+                        </select>
+                    </div>
+                    <div class="oneRow-content">
+                        <label class="label text" for="state">State</label>
+                        <select class="select-input" id="state" name="State" required>
+                            <option value="" selected disabled hidden>Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        </select>
+                    </div>
+                    <div class="oneRow-content">
+                        <label class="label text" for="zip">Zip</label>
+                        <input class="input" type="text" name="Zip" id="zip" required>
+                    </div>
+                </div>
+                <div class="row-content">
+                    <label class="label text" for="phone">Phone Number</label>
+                    <input class="input" type="text" name="Phone" id="phone" required>
+                    <error-output class="phone-error" for="text"></error-output>
+                </div>
+            </div>
         </form>
     </div>
 </body>
